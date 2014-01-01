@@ -4,11 +4,13 @@
 <html>
     <head>
         <title>Rango</title>
+        <link rel="stylesheet" href='{% static "css/base.css" %}' /> <!-- CSS -->
+        <script src="{% static 'js/jquery.js' %}"></script> <!-- javascript -->
     </head>
     <body>
-    <h1>Rango says...</h1>
-    hello world! <strong>{{ boldmessage }}</strong><br />
-    <a href="/rango/about/">About</a><br />
-    <img src="{% static "rango.jpg" %}" alt="Picture of Rango" /> <!-- combines STATIC_URL with rango.jpg -->
+        <h1>Including Static Media</h1>
+        hello world! <strong>{{ boldmessage }}</strong><br />
+        <a href="/rango/about/">About</a><br />
+        <img src="{% static "rango.jpg" %}" alt="Picture of Rango" /> <!-- combines STATIC_URL with rango.jpg -->
     </body>
 </html>
