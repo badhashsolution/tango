@@ -9,10 +9,27 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+##################### PATHS ############################
+
+# WGG from tango with django: the road to hell is paved with
+# hard-coded paths. Hard-coding paths is considered to be a
+# software engineering anti-pattern because it makes your
+# project less portable. Solved with dynamic paths.
+SETTINGS_DIR = os.path.dirname(__file__)
+
+# returns <workspace>/tango_with_django_project/tango_
+# with_django_project
+PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
+
+# returns <workspace>/tango_with_django_project/
+PROJECT_PATH = os.path.abspath(PROJECT_PATH)
+
+DATABASE_PATH = os.path.join(PROJECT_PATH, 'rango.db')
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '',                      # Or path to database file if using sqlite3.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': DATABASE_PATH,                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
@@ -47,19 +64,6 @@ USE_L10N = True
 
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
-
-# WGG from tango with django: the road to hell is paved with
-# hard-coded paths. Hard-coding paths is considered to be a
-# software engineering anti-pattern because it makes your
-# project less portable. Solved with dynamic paths.
-SETTINGS_DIR = os.path.dirname(__file__)
-
-# returns <workspace>/tango_with_django_project/tango_
-# with_django_project
-PROJECT_PATH = os.path.join(SETTINGS_DIR, os.pardir)
-
-# returns <workspace>/tango_with_django_project/
-PROJECT_PATH = os.path.abspath(PROJECT_PATH)
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/var/www/example.com/media/"
@@ -144,7 +148,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'rango',
