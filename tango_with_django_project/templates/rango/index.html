@@ -1,16 +1,25 @@
 <!DOCTYPE html>
-
-{% load static %}  <!-- informs django's template system we will be using static media -->
 <html>
     <head>
         <title>Rango</title>
-        <link rel="stylesheet" href='{% static "css/base.css" %}' /> <!-- CSS -->
-        <script src="{% static 'js/jquery.js' %}"></script> <!-- javascript -->
     </head>
+
     <body>
-        <h1>Including Static Media</h1>
-        hello world! <strong>{{ boldmessage }}</strong><br />
-        <a href="/rango/about/">About</a><br />
-        <img src="{% static "rango.jpg" %}" alt="Picture of Rango" /> <!-- combines STATIC_URL with rango.jpg -->
+        <h1>Rango says..hello world!</h1>
+        <ul>
+            <a href="/rango/about/">About</a>
+        </ul>
+        <h2>Categories</h2>
+        {% if categories %}
+            <ul>
+                {% for category in categories %}
+                <!-- Following line changed to add an HTML hyperlink -->
+                <li><a href="/rango/category/{{ category.url }}">{{ category.name }}</a></li>
+                {% endfor %}
+            </ul>
+       {% else %}
+            <strong>There are no categories present.</strong>
+       {% endif %}
+
     </body>
 </html>
