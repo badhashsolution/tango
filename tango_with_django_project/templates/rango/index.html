@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+{% load static %}  <!-- informs django's template system we will be using static media -->
 <html>
     <head>
         <title>Rango</title>
@@ -9,6 +11,9 @@
         <ul>
             <a href="/rango/about/">About</a>
         </ul>
+
+        <img src="{% static 'rango.jpg' %}" alt = "Picture of Rango" />
+
         <h2>Categories</h2>
         {% if categories %}
             <ul>
@@ -21,5 +26,16 @@
             <strong>There are no categories present.</strong>
        {% endif %}
 
+        <h2>Pages</h2>
+        {% if pages %}
+            <ul>
+                {% for page in pages %}
+                <!-- Following line changed to add an HTML hyperlink -->
+                <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <strong>There are no categories present.</strong>
+        {% endif %}
     </body>
 </html>

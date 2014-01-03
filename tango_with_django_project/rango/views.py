@@ -12,7 +12,8 @@ def index(request):
     # Retrieve the top 5 only - or all if less than 5.
     # Place the list in our context_dict dictionary which will be passed to the template engine.
     category_list = Category.objects.order_by('-likes')[:5]
-    context_dict = {'categories': category_list}
+    page_list = Page.objects.order_by('-views')[:5]
+    context_dict = {'categories': category_list, 'pages': page_list}
 
     # The following two lines are new.
     # We loop through each category returned, and create a URL attribute.
