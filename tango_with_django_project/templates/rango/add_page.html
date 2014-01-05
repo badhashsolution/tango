@@ -5,10 +5,12 @@
     </head>
 
     <body>
-        <h1>Add a Category</h1>
+        <h1>Add a Page</h1>
         <!-- the csrf_token is a Cross-Site Request Forgery token
-        it helps protect and secure the HTTP post action -->
-        <form id="category_form" method="post" action="/rango/add_category/">
+        it helps protect and secure the HTTP post action.
+        Note that this also indicates the url when the form is
+        submitted. -->
+        <form id="page_form" method="post" action="/rango/category/{{category_name_url}}/add_page/">
 
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
@@ -21,7 +23,7 @@
                 {{ field }}
             {% endfor %}
 
-            <input type="submit" name="submit" value="Create Category" />
+            <input type="submit" name="submit" value="Create Page" />
         </form>
 
     </body>
