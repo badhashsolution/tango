@@ -1,8 +1,12 @@
+# WGG Django's form handling library
 from django import forms
 from rango.models import Page, Category
 
+# WGG ModelForm is a helper class that creates a form from a model
 class CategoryForm(forms.ModelForm):
     name = forms.CharField(max_length=128, help_text="Please enter the category name.")
+    # WGG  These fields need to be populated but not by the user
+    # and so they are hidden
     views = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
     likes = forms.IntegerField(widget=forms.HiddenInput(), initial=0)
 
