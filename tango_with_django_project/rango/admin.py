@@ -2,10 +2,7 @@
 from django.contrib import admin
 
 #WGG  category and page models
-from rango.models import Category, Page
-
-# IMport the UserProfile model individually
-from rango.models import UserProfile
+from rango.models import Category, Page, UserProfile
 
 class PageAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'url')

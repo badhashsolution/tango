@@ -24,6 +24,7 @@ class UserProfile(models.Model):
 
     # The additional attributes we wish to include
     website = models.URLField(blank=True)
+    # ImageField uses pil: Python Imaging Library - it must be installed
     picture = models.ImageField(upload_to='profile_images', blank=True)
 
     # Override the __unicode__() method to return out something meaningful!
