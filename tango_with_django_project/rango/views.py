@@ -1,8 +1,9 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from django.shortcuts import render_to_response
 from rango.models import Category, Page
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
+from django.contrib.auth import authenticate, login
 
 def encode_url(str):
     return str.replace(' ', '_')
@@ -199,3 +200,30 @@ def register(request):
         {'user_form': user_form, 'profile_form': profile_form, 'reistered': registered},
         context)
 
+def user_login(request):
+    # Like before, obtain the context for the user's request.
+    context = RequestContext(request)
+
+    # If the request is a http POST, try to pull out the relevant info.
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+
+        # verify is the user/login combo is valid
+        user = authenticate(username=username, password=password)
+
+        # if we have a user object, the combo was valid
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/rango/')
+            else:
+                return HttpResponse("Your Rango account is disabled.")
+        else:
+            # bad login info
+            print "Invalid login details: {0}, {1}".format(username, password)
+            return HttpResponse("Invalid login details supplied.")
+
+    # If the request is not a HTTP POST
+    else:
+        return render_to_response('rango/login.html', {}, context)
