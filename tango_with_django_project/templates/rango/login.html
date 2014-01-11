@@ -1,9 +1,10 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Rango</title>
-    </head>
-    <body>
+{% extends 'rango/base.html' %}
+
+{% load static %}  <!-- informs django's template system we will be using static media -->
+
+{% block title %}{{ "Login" }}{% endblock %}
+
+{% block body_block %}
         <h1>Login to Rango</h1>
 
         <form id="login_form" method="post" action="/rango/login/">
@@ -14,5 +15,4 @@
             <br />
             <input type="submit" value="submit" />
         </form>
-    </body>
-</html>
+{% endblock %}

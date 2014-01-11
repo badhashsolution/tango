@@ -1,29 +1,26 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Rango</title>
-    </head>
+{% extends 'rango/base.html' %}
 
-    <body>
-        <h1>Add a Category</h1>
-        <!-- the csrf_token is a Cross-Site Request Forgery token
-        it helps protect and secure the HTTP post action -->
-        <form id="category_form" method="post" action="/rango/add_category/">
+{% load static %}  <!-- informs django's template system we will be using static media -->
 
-            {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-            {% endfor %}
+{% block title %}{{ "Add a Category" }}{% endblock %}
 
-            {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text}}
-                {{ field }}
-            {% endfor %}
+{% block body_block %}
+    <h1>Add a Category</h1>
+    <!-- the csrf_token is a Cross-Site Request Forgery token
+    it helps protect and secure the HTTP post action -->
+    <form id="category_form" method="post" action="/rango/add_category/">
 
-            <input type="submit" name="submit" value="Create Category" />
-        </form>
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
 
-    </body>
+        {% for field in form.visible_fields %}
+            {{ field.errors }}
+            {{ field.help_text}}
+            {{ field }}
+        {% endfor %}
 
-</html>
+        <input type="submit" name="submit" value="Create Category" />
+    </form>
+{% endblock %}

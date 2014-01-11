@@ -232,7 +232,9 @@ def user_login(request):
 # this is a built in django decorator
 @login_required
 def restricted(request):
-    return HttpResponse("Since you're logged in, you can see this text!")
+    context = RequestContext(request)
+    context_dict = {'boldmessage': "Since you're logged in, you can see this text!"}
+    return render_to_response('rango/restricted.html', context_dict, context)
 
 # only those logged in can log out
 @login_required

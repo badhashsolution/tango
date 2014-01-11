@@ -1,20 +1,17 @@
-<!DOCTYPE html>
+{% extends 'rango/base.html' %}
 
 {% load static %}  <!-- informs django's template system we will be using static media -->
-<html>
-    <head>
-        <title>Rango</title>
-    </head>
 
-    <body>
-        {% if user.is_authenticated %}
+{% block title %}{{ "Welcome to Rango" }}{% endblock %}
+
+{% block body_block %}
+    {% if user.is_authenticated %}
         <h1>Rango says... hello {{user.username}}</h1>
-        {% else %}
+    {% else %}
         <h1>Rango says..hello world!</h1>
-        {% endif %}
+    {% endif %}
 
-
-        <img src="{% static 'rango.jpg' %}" alt = "Picture of Rango" />
+    <img src="{% static 'rango.jpg' %}" alt = "Picture of Rango" />
 
         <h2>Categories</h2>
         {% if categories %}
@@ -39,21 +36,4 @@
         {% else %}
             <strong>There are no categories present.</strong>
         {% endif %}
-
-
-
-        <ul>
-        {% if user.is_authenticated %}
-        <a href="/rango/restricted/">Restricted Page</a><br />
-        <a href="/rango/logout/">Logout</a><br />
-        {% else %}
-        <a href="/rango/register/">Register Here</a><br />
-        <a href="/rango/login/">Login</a><br />
-        {% endif %}
-
-        <a href="/rango/about/">About</a><br />
-        <a href="/rango/add_category/">Add a New Category</a><br />
-        </ul>
-
-    </body>
-</html>
+{% endblock %}

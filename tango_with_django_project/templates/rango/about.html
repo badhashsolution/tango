@@ -1,16 +1,14 @@
-<!DOCTYPE html>
+{% extends 'rango/base.html' %}
 
 {% load static %}  <!-- informs django's template system we will be using static media -->
-<html>
-    <head>
-        <title>About Rango</title>
-        <link rel="stylesheet" href='{% static "css/base.css" %}' /> <!-- CSS -->
-        <script src="{% static 'js/jquery.js' %}"></script> <!-- javascript -->
-    </head>
-    <body>
-        <h1>Including Static Media</h1>
-        About Rango! <strong>{{ boldmessage }}</strong><br />
-         <a href='/rango/'>Index</a><br />
-        <img src="{% static 'staycool.jpg' %}" alt="Picture of Staying Cool" /> <!-- combines STATIC_URL with rango.jpg -->
-    </body>
-</html>
+
+{% block title %}{{ "About" }}{% endblock %}
+
+{% block body_block %}
+    <link rel="stylesheet" href='{% static "css/base.css" %}' /> <!-- CSS -->
+    <script src="{% static 'js/jquery.js' %}"></script> <!-- javascript -->
+
+    <h1>About Rango</h1>
+        <strong>{{ boldmessage }}</strong><br />
+    <img src="{% static 'staycool.jpg' %}" alt="Picture of Staying Cool" /> <!-- combines STATIC_URL with rango.jpg -->
+{% endblock %}
