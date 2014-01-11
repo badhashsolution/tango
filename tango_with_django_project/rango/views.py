@@ -3,7 +3,8 @@ from django.template import RequestContext
 from django.shortcuts import render_to_response
 from rango.models import Category, Page
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 def encode_url(str):
     return str.replace(' ', '_')
@@ -227,3 +228,17 @@ def user_login(request):
     # If the request is not a HTTP POST
     else:
         return render_to_response('rango/login.html', {}, context)
+
+# this is a built in django decorator
+@login_required
+def restricted(request):
+    return HttpResponse("Since you're logged in, you can see this text!")
+
+# only those logged in can log out
+@login_required
+def user_logout(request):
+    # since we now the user is logged in, we can just log them out
+    logout(request)
+
+    # Take the user back to the homepage
+    return HttpResponseRedirect('/rango/')

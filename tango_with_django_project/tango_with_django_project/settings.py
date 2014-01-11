@@ -185,6 +185,11 @@ LOGGING = {
     }
 }
 
+# URL to redirect users who aren't logged in
+# This ensures the login_required() decorator will redirect
+# any user not logged in to the URL
+LOGIN_URL = '/rango/login/'
+
 # WGG printing project path and template path
 
 print "Project Path: ", PROJECT_PATH
