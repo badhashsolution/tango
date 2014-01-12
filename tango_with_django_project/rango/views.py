@@ -13,6 +13,7 @@ def decode_url(str):
     return str.replace(' ', '_')
 
 def index(request):
+    request.session.set_test_cookie()
     # Obtain the context from the HTTP request.
     context = RequestContext(request)
 
@@ -142,7 +143,10 @@ def add_page(request, category_name_url):
         context)
 
 def register(request):
-    # LIke before, get the request's context.
+    if request.session.test_cookie_worked():
+        print ">>>> TEST COOKIE WORKED!!"
+        request.session.delete_test_cookie()
+    # Like before, get the request's context.
     context = RequestContext(request)
 
     # A boolean value for telling the template whether the registration was successful
