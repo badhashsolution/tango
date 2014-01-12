@@ -5,6 +5,7 @@ from rango.models import Category, Page
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from datetime import datetime
 
 def encode_url(str):
     return str.replace(' ', '_')
@@ -13,29 +14,29 @@ def decode_url(str):
     return str.replace(' ', '_')
 
 def index(request):
-    request.session.set_test_cookie()
-    # Obtain the context from the HTTP request.
     context = RequestContext(request)
 
-    # Query the database for a list of ALL categories currently stored.
-    # Order the categories by no. likes in descending order.
-    # Retrieve the top 5 only - or all if less than 5.
-    # Place the list in our context_dict dictionary which will be passed to the template engine.
-    category_list = Category.objects.order_by('-likes')[:5]
-    page_list = Page.objects.order_by('-views')[:5]
+    category_list = Category.objects.all()
     context_dict = {'categories': category_list}
 
-    # The following two lines are new.
-    # We loop through each category returned, and create a URL attribute.
-    # This attribute stores an encoded URL (e.g. spaces replaced with underscores).
     for category in category_list:
         category.url = encode_url(category.name)
 
-    # top 5 pages in terms of views
     page_list = Page.objects.order_by('-views')[:5]
     context_dict['pages'] = page_list
 
-    # Render the response and send it back!
+    if request.session.get('last_visit'):
+        # The session has a value or the last visit
+        last_visit_time = request.session.get('last_visit')
+        visits = request.session.get('visits', 0)
+
+        if (datetime.now() - datetime.strptime(last_visit_time[:-7], "%Y-%m-%d %H:%M:%S")).days > 0:
+            request.session['visits'] = visits + 1
+            request.session['last_visit'] = str(datetime.now())
+    else:
+        request.session['last_visit'] = str(datetime.now())
+        request.session['visits'] = 1
+
     return render_to_response('rango/index.html', context_dict, context)
 
 def about(request):
@@ -143,9 +144,6 @@ def add_page(request, category_name_url):
         context)
 
 def register(request):
-    if request.session.test_cookie_worked():
-        print ">>>> TEST COOKIE WORKED!!"
-        request.session.delete_test_cookie()
     # Like before, get the request's context.
     context = RequestContext(request)
 
