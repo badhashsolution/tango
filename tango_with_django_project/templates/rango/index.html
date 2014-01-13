@@ -5,6 +5,7 @@
 {% block title %}{{ "Welcome to Rango" }}{% endblock %}
 
 {% block body_block %}
+<div class="hero-unit">
     {% if user.is_authenticated %}
         <h1>Rango says... hello {{user.username}}</h1>
     {% else %}
@@ -36,4 +37,5 @@
         {% else %}
             <strong>There are no categories present.</strong>
         {% endif %}
+</div>
 {% endblock %}

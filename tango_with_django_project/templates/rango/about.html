@@ -5,10 +5,13 @@
 {% block title %}{{ "About" }}{% endblock %}
 
 {% block body_block %}
-    <link rel="stylesheet" href='{% static "css/base.css" %}' /> <!-- CSS -->
-    <script src="{% static 'js/jquery.js' %}"></script> <!-- javascript -->
-
+<div class="hero-unit">
     <h1>About Rango</h1>
-        <strong>{{ boldmessage }}</strong><br />
-    <img src="{% static 'staycool.jpg' %}" alt="Picture of Staying Cool" /> <!-- combines STATIC_URL with rango.jpg -->
+    This is <strong>Rango's about page</strong>.<br />
+
+    You've visited the site on <strong>{{ visit_count }} occasion(s)</strong>.<br />
+
+    Here's a picture of Rango!<br />
+    <img src="{% static 'rango.jpg' %}" alt="Picture of Rango" />
+</div>
 {% endblock %}

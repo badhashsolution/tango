@@ -5,6 +5,7 @@
 {% block title %}{{ "Add a Category" }}{% endblock %}
 
 {% block body_block %}
+<div class="hero-unit">
     <h1>Add a Category</h1>
     <!-- the csrf_token is a Cross-Site Request Forgery token
     it helps protect and secure the HTTP post action -->
@@ -23,4 +24,5 @@
 
         <input type="submit" name="submit" value="Create Category" />
     </form>
+</div>
 {% endblock %}
